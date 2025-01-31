@@ -99,7 +99,7 @@ body.burger-menu.active {
 /* Animación del burger menu */
 .burger-menu.active .line1 {
   transform: rotate(-45deg) translate(-5px, 6px);
-  background-color: currentColor !important;
+  background-color: var(--main-text-color) !important;
 }
 
 .burger-menu.active .line2 {
@@ -108,7 +108,7 @@ body.burger-menu.active {
 
 .burger-menu.active .line3 {
   transform: rotate(45deg) translate(-5px, -6px);
-  background-color: currentColor !important;
+  background-color: var(--main-text-color) !important;
 }
 
 .main-content {
@@ -125,7 +125,7 @@ body.burger-menu.active {
   gap: 1.75rem;
 }
 
-project {
+.project {
   display: flex;
   justify-content: space-evenly;
   align-items: center;

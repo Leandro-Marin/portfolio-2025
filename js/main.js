@@ -67,18 +67,13 @@ function applyColorPalette(palette) {
 
 // Función para actualizar el color de la "X"
 function updateBurgerColor() {
-  const currentTextColor = getComputedStyle(document.documentElement).getPropertyValue('--main-text-color').trim();
+  const burger = document.querySelector('.burger-menu');
   const burgerBars = document.querySelectorAll('.burger-menu div');
+  const currentTextColor = getComputedStyle(document.documentElement).getPropertyValue('--main-text-color').trim();
   
-  if (burger.classList.contains('active')) {
-    burgerBars.forEach(bar => {
-      bar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--main-bg-color').trim();
-    });
-  } else {
-    burgerBars.forEach(bar => {
-      bar.style.backgroundColor = currentTextColor;
-    });
-  }
+  burgerBars.forEach(bar => {
+    bar.style.setProperty('background-color', currentTextColor, 'important');
+  });
 }
 
 // Load the saved color palette from localStorage (if any)
