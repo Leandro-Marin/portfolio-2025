@@ -33,16 +33,14 @@ body {
   background-color: var(--main-bg-color);
   text-transform: uppercase;
   transition: color var(--transition-duration) ease, background-color var(--transition-duration) ease;
+  min-height: 100vh; /* Asegura que el body ocupe toda la altura */
+  display: flex;
+  flex-direction: column;
 }
+
 
 .h1 {
   font-size: 2.5rem;
-}
-
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 .navbar {
@@ -87,14 +85,13 @@ body {
   width: 25px;
   height: 2px;
   margin: 5px;
-  background-color: currentColor;
-  transition: background-color 0.3s ease;
+  background-color: var(--main-text-color);
+  transition: all 0.3s ease;
 }
 
 body.burger-menu.active {
   background-color: #333; /* Cambia este color al que desees para el fondo */
 }
-
 
 /* Animación del burger menu */
 .burger-menu.active .line1 {
@@ -241,10 +238,14 @@ body.burger-menu.active {
   color: var(--main-bg-color);
 }
 
+footer {
+  margin-top: auto; /* Asegura que el footer se empuje hacia abajo */
+}
 
 .footer-desktop,
 .footer-mobile {
   padding: 1rem 1.5rem;
+  width: 100%;
 }
 
 .footer-content {
