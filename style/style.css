@@ -126,15 +126,13 @@ body.burger-menu.active {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  max-width: 1000px;
-  padding: 0.5rem 0;
-  min-height: 30px;
-} 
+  padding: 0.75rem 0;
+}
 
 .project-menu {
   height: 2rem;
   font-family: 'Questrial', sans-serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--main-text-color);
@@ -156,7 +154,12 @@ body.burger-menu.active {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--main-text-color);
+ 
 }
+
+.project:hover span{
+  font-style: italic;
+} 
 
 .name {
   font-family: 'BaseNeueTrial-SuperExpBlack';
@@ -340,14 +343,32 @@ footer {
     display: block !important;
   }
 
-  .project-menu {
-    height: 1rem;
-    font-size: 1.75rem;
+  .project {
+    padding: 0.5rem;
   }
 
-  .project-menu:hover {
-    font-size: 1.5rem;
+  .project {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
     text-align: center;
+  }
+
+  .project-menu {
+    font-size: 1.8rem;
+    height: auto;
+    margin: 0;
+    transition: all 0.3s ease;
+  }
+
+  .project span {
+    margin: 5px 0;
+    transition: font-style 0.3s ease;
+  }
+
+  .project-menu:hover span {
+    font-style: italic;
   }
 
   .project-header {
