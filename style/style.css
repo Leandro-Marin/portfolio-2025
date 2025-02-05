@@ -156,11 +156,15 @@ body.burger-menu.active {
   color: var(--main-text-color);
  
 }
-
-.project:hover span{
-  font-style: italic;
-} 
-
+.project-span{
+  order:0;
+}
+.project-menu{
+  order:1;
+}
+.project-year{
+  order:2;
+}
 .name {
   font-family: 'BaseNeueTrial-SuperExpBlack';
   font-size: 1.5rem;
@@ -291,6 +295,11 @@ footer {
   display: none;
 }
 
+/*EFFETTO ITALIC*/
+a.project-menu:hover ~ span {
+  font-style: italic;
+}
+
 
 
 
@@ -344,10 +353,6 @@ footer {
   }
 
   .project {
-    padding: 0.5rem;
-  }
-
-  .project {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -367,9 +372,11 @@ footer {
     transition: font-style 0.3s ease;
   }
 
-  .project-menu:hover span {
-    font-style: italic;
-  }
+  
+  
+
+/* final */
+  
 
   .project-header {
      height: auto;

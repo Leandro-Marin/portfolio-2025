@@ -93,3 +93,21 @@ changeMoodButtons.forEach(button => {
     localStorage.setItem('selectedPalette', randomIndex);
   });
 });
+
+
+// Italic effect on span
+
+document.querySelectorAll('.project-menu').forEach((link) => {
+  const project = link.closest('.project'); // Encuentra el contenedor .project
+  const spans = project.querySelectorAll('.project-span'); // Selecciona todos los <span> con la clase .project-span
+
+  // Cuando el mouse entra en el <a>
+  link.addEventListener('mouseenter', () => {
+    spans.forEach((span) => span.classList.add('hover-italic')); // Añade la clase .hover-italic a los <span>
+  });
+
+  // Cuando el mouse sale del <a>
+  link.addEventListener('mouseleave', () => {
+    spans.forEach((span) => span.classList.remove('hover-italic')); // Quita la clase .hover-italic de los <span>
+  });
+});
