@@ -1,47 +1,30 @@
-// ============================
-// 🍔 BURGER MENU FUNCTIONALITY
-// ============================
+// Burger menu functionality
 const burger = document.querySelector('.burger-menu');
 const nav = document.querySelector('.nav-links');
-const body = document.body;  // Referencia al body
 
 burger.addEventListener('click', () => {
   burger.classList.toggle('active');
   nav.classList.toggle('active');
-  
-  // Alterna la clase menu-active en el body y en el nav para cambiar el fondo
-  body.classList.toggle('menu-active');
-  nav.classList.toggle('menu-active');  // Asegúrate de aplicar también al contenedor del nav
-
-  // Actualizar color de la X cuando se active el menú
-  updateBurgerColor();
 });
 
-// Cerrar menú cuando se hace clic fuera
+// Close menu when clicking outside
 document.addEventListener('click', (e) => {
   if (!nav.contains(e.target) && !burger.contains(e.target) && nav.classList.contains('active')) {
     nav.classList.remove('active');
     burger.classList.remove('active');
-    body.classList.remove('menu-active');  // Eliminar la clase si el menú se cierra
-    nav.classList.remove('menu-active');   // Eliminar la clase en nav también
-    updateBurgerColor();
   }
 });
 
-// Cerrar menú cuando se hace clic en un enlace
-document.querySelectorAll('.nav-links a').forEach(link => {
+// Close menu when clicking on a link
+const navLinks = document.querySelectorAll('.nav-links a');
+navLinks.forEach(link => {
   link.addEventListener('click', () => {
     nav.classList.remove('active');
     burger.classList.remove('active');
-    body.classList.remove('menu-active');  // Eliminar la clase si se hace clic en un enlace
-    nav.classList.remove('menu-active');   // Eliminar la clase en nav también
-    updateBurgerColor();
   });
 });
 
-// ============================
-// 🎨 COLOR MOOD FUNCTIONALITY
-// ============================
+// Color palettes
 const colorPalettes = [
   { bg: '#1A1A2E', text: '#E94560' },  // Crimson Night
   { bg: '#ECDBBA', text: '#2D4263' },  // Vintage Elegance
@@ -55,59 +38,42 @@ const colorPalettes = [
   { bg: '#A4D17A', text: '#728F48' },  // Mossy Whisper
   { bg: '#F4ECE5', text: '#8F6348' },  // Autumn Glow
   { bg: '#FFA500', text: '#282C34' },  // Golden Hour
-  { bg: '#2A2A2A', text: '#FF007F' },  // Metallic
+  { bg: '#2A2A2A', text: '#FF007F' },  // Metallic Rose
+  { bg: '#141D2E', text: '#006AFF' },  // Royal Blue
+  { bg: '#4B0082', text: '#FFFAF0' },  // Crimson Ivory
+  { bg: '#FFFEF0', text: '#6A8E7F' },  // Main colors
 ];
 
-// Function to apply selected color palette
-function applyColorPalette(palette) {
-  document.documentElement.style.setProperty('--main-text-color', palette.text);
-  document.documentElement.style.setProperty('--main-bg-color', palette.bg);
-  updateBurgerColor();
-}
+// Get saved color index from localStorage or use -1 as default
+let currentPaletteIndex = parseInt(localStorage.getItem('currentPaletteIndex') || '-1');
 
-// Función para actualizar el color de la "X"
-function updateBurgerColor() {
-  const burger = document.querySelector('.burger-menu');
-  const burgerBars = document.querySelectorAll('.burger-menu div');
-  const currentTextColor = getComputedStyle(document.documentElement).getPropertyValue('--main-text-color').trim();
+// Function to update colors with a smooth transition
+function changeMood() {
+  currentPaletteIndex = (currentPaletteIndex + 1) % colorPalettes.length;
+  const newColors = colorPalettes[currentPaletteIndex];
+  const root = document.documentElement;
   
-  burgerBars.forEach(bar => {
-    bar.style.setProperty('background-color', currentTextColor, 'important');
-  });
+  root.style.setProperty('--main-bg-color', newColors.bg);
+  root.style.setProperty('--main-text-color', newColors.text);
+  
+  // Save current index to localStorage
+  localStorage.setItem('currentPaletteIndex', currentPaletteIndex.toString());
 }
 
-// Load the saved color palette from localStorage (if any)
-const savedPalette = localStorage.getItem('selectedPalette');
-if (savedPalette) {
-  const paletteIndex = parseInt(savedPalette);
-  applyColorPalette(colorPalettes[paletteIndex]);
+// Set initial colors based on saved index
+const root = document.documentElement;
+if (currentPaletteIndex >= 0) {
+  const savedColors = colorPalettes[currentPaletteIndex];
+  root.style.setProperty('--main-bg-color', savedColors.bg);
+  root.style.setProperty('--main-text-color', savedColors.text);
+} else {
+  // Set default colors if no saved index
+  root.style.setProperty('--main-bg-color', '#FFFEF0');
+  root.style.setProperty('--main-text-color', '#6A8E7F');
 }
 
-// Button functionality to change color mood (both buttons)
-const changeMoodButtons = document.querySelectorAll('.mood-button');
-changeMoodButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * colorPalettes.length);
-    const selectedPalette = colorPalettes[randomIndex];
-    applyColorPalette(selectedPalette);
-    localStorage.setItem('selectedPalette', randomIndex);
-  });
-});
-
-
-// Italic effect on span
-
-document.querySelectorAll('.project-menu').forEach((link) => {
-  const project = link.closest('.project'); // Encuentra el contenedor .project
-  const spans = project.querySelectorAll('.project-span'); // Selecciona todos los <span> con la clase .project-span
-
-  // Cuando el mouse entra en el <a>
-  link.addEventListener('mouseenter', () => {
-    spans.forEach((span) => span.classList.add('hover-italic')); // Añade la clase .hover-italic a los <span>
-  });
-
-  // Cuando el mouse sale del <a>
-  link.addEventListener('mouseleave', () => {
-    spans.forEach((span) => span.classList.remove('hover-italic')); // Quita la clase .hover-italic de los <span>
-  });
+// Add click event listeners to both mood buttons
+const moodButtons = document.querySelectorAll('.mood-button');
+moodButtons.forEach(button => {
+  button.addEventListener('click', changeMood);
 });

@@ -116,10 +116,19 @@ body.burger-menu.active {
   justify-content: center;
   padding: 2rem;
   gap: 3rem;
+  overflow: hidden;
 }
 
-.main-content.main-projects{
-  gap: 1rem;
+.main-content.main-projects {
+  gap: 1.75rem;
+  padding: 2rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.main-content.main-projects::-webkit-scrollbar {
+  display: none;
 }
 
 .project {
@@ -154,17 +163,21 @@ body.burger-menu.active {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--main-text-color);
- 
+  margin-top: 6px;
 }
+
 .project-span{
   order:0;
 }
+
 .project-menu{
   order:1;
 }
+
 .project-year{
   order:2;
 }
+
 .name {
   font-family: 'BaseNeueTrial-SuperExpBlack';
   font-size: 1.5rem;
