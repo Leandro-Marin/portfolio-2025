@@ -4,6 +4,7 @@
   --transition-duration: 0.4s;
 }
 
+
 @font-face {
   font-family: 'BaseNeueTrial-Regular';
   src: url('fonts/BaseNeueTrial-Regular.woff2') format('woff2'),
@@ -311,6 +312,73 @@ footer {
 /*EFFETTO ITALIC*/
 a.project-menu:hover ~ span {
   font-style: italic;
+}
+
+/* About page styles */
+
+.main-about {
+  flex: 1;
+}
+
+.about-container {
+  display: flex;
+  gap: 2rem;
+  height: 100%;
+  padding: 2rem;
+}
+
+.about-wrapper {
+  flex: 0 0 65%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-sidebar {
+  flex: 0 0 35%;
+}
+
+.about-title {
+  font-family: 'BaseNeueTrial-SuperExpBlack' , sans-serif;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.about-paragraphs {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about-paragraphs p {
+  font-family: 'Questrial', sans-serif;
+  font-size: 0.7rem;
+  flex: 1;
+}
+
+.about-boxes {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.box {
+  flex: 1;
+}
+
+.box-container {
+  margin-top: 10px;
+}
+
+.box-container h4{
+  font-family: 'BaseNeueTrial-SuperExpBlack' , sans-serif;
+  font-size: 1rem;
+}
+
+.box-container p{
+  font-family: 'Questrial', sans-serif;
+  font-size: 0.7rem;
 }
 
 
