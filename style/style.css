@@ -336,22 +336,22 @@ a.project-menu:hover ~ span {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* This will push the boxes to the bottom */
-}
-
-.about-content-top {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  justify-content: space-between;
 }
 
 .about-sidebar {
   flex: 0 0 35%;
 }
 
+.about-content-top {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .about-title {
-  font-size: 3rem;
-  margin-bottom: 2rem;
+  font-family: 'BaseNeueTrial-SuperExpBlack' , sans-serif;
+  font-size: 5rem;
 }
 
 .about-paragraphs {
@@ -359,24 +359,51 @@ a.project-menu:hover ~ span {
   gap: 2rem;
 }
 
-.about-paragraphs p {
-  flex: 1;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
 .about-boxes {
   display: flex;
-  gap: 1rem;
+  gap: 15rem;
   margin-top: auto; /* Ensures boxes stay at the bottom */
 }
 
+.box-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
 .box {
-  flex: 1;
-  padding: 2rem;
-  border: 1px solid var(--main-text-color);
+  margin-top: 30px;
+}
+
+.box h4{
+  font-family: 'BaseNeueTrial-SuperExpBlack' , sans-serif;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.box p {
+  text-align: left;
+}
+
+.box-wrapper a {
+  min-width: 100px;
+  border: solid 1px var(--main-text-color);
+  border-radius: 50px;
   text-align: center;
-  transition: all var(--transition-duration) var(--transition-timing);
+  text-decoration: none;
+  font-family: 'Questrial', sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--main-text-color);
+  padding: 6px 12px; 
+  transition: all 0.3s ease;
+}
+
+.box-wrapper a:hover {
+  background-color: var(--main-text-color);
+  color: var(--main-bg-color);
 }
 
 @media screen and (max-width: 768px) {
