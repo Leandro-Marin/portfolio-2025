@@ -45,23 +45,73 @@ const colorPalettes = [
 ];
 
 // Get saved color index from localStorage or use -1 as default
-let currentPaletteIndex = parseInt(localStorage.getItem('currentPaletteIndex') || '-1');
 
 // Function to update colors with a smooth transition
 function changeMood() {
-  currentPaletteIndex = (currentPaletteIndex + 1) % colorPalettes.length;
+  const savedIndex = parseInt(localStorage.getItem('selectedPalette'));
+  currentPaletteIndex = (savedIndex + 1) % colorPalettes.length;
   const newColors = colorPalettes[currentPaletteIndex];
+  const root = document.documentElement;
+
+  root.style.setProperty('--main-bg-color', newColors.bg);
+  root.style.setProperty('--main-text-color', newColors.text);
+  
+  // Save current index to localStorage
+  localStorage.setItem('selectedPalette', currentPaletteIndex.toString());
+}
+
+// Function to update colors with a smooth transition
+function changeMood1() {
+  // Recupera l'indice salvato o usa -1 come default
+  const savedIndex = parseInt(localStorage.getItem('selectedPalette'));
+  let currentIndex = isNaN(savedIndex) ? -1 : savedIndex;
+  
+  // Passa al prossimo indice (gestendo anche il caso in cui currentIndex sia -1)
+  currentIndex = (currentIndex + 1) % colorPalettes.length;
+  
+  // Applica il nuovo colore
+  const newColors = colorPalettes[currentIndex];
   const root = document.documentElement;
   
   root.style.setProperty('--main-bg-color', newColors.bg);
   root.style.setProperty('--main-text-color', newColors.text);
   
-  // Save current index to localStorage
-  localStorage.setItem('currentPaletteIndex', currentPaletteIndex.toString());
+  // Salva il nuovo indice
+  localStorage.setItem('selectedPalette', currentIndex.toString());
 }
 
+ // Funzione di inizializzazione tema
+ function initializeTheme() {
+  const savedIndex = localStorage.getItem('selectedPalette');
+  const root = document.documentElement;
+  
+  if (savedIndex !== null) {
+    const index = parseInt(savedIndex);
+    if (index >= 0 && index < colorPalettes.length) {
+      // Applica il tema salvato
+      root.style.setProperty('--main-bg-color', colorPalettes[index].bg);
+      root.style.setProperty('--main-text-color', colorPalettes[index].text);
+    }
+  }
+  
+  // Importante: mostra il contenuto solo dopo aver applicato il tema
+  document.body.classList.add('theme-initialized');
+}
+
+// Se il DOM è già pronto, inizializza subito
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  initializeTheme();
+} else {
+  // Altrimenti aspetta il primo evento disponibile
+  document.addEventListener('DOMContentLoaded', initializeTheme);
+}
+
+/*
 // Set initial colors based on saved index
 const root = document.documentElement;
+let currentPaletteIndex = parseInt(localStorage.getItem('selectedPalette') || '-1');
+
+
 if (currentPaletteIndex >= 0) {
   const savedColors = colorPalettes[currentPaletteIndex];
   root.style.setProperty('--main-bg-color', savedColors.bg);
@@ -70,10 +120,9 @@ if (currentPaletteIndex >= 0) {
   // Set default colors if no saved index
   root.style.setProperty('--main-bg-color', '#FFFEF0');
   root.style.setProperty('--main-text-color', '#6A8E7F');
-}
+}*/
 
 // Add click event listeners to both mood buttons
-const moodButtons = document.querySelectorAll('.mood-button');
-moodButtons.forEach(button => {
-  button.addEventListener('click', changeMood);
-});
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}

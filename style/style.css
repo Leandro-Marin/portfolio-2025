@@ -41,6 +41,15 @@ body {
   flex-direction: column;
 }
 
+body:not(.theme-initialized) {
+  opacity: 0;
+}
+
+body.theme-initialized {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
 
 .h1 {
   font-size: 2.5rem;
@@ -49,7 +58,9 @@ body {
 .navbar {
   color: white;
   padding: 1rem;
-  position: relative;
+  position: fixed;
+  top:0;
+  width: 100%;
 }
 
 .navbar-content {
@@ -117,9 +128,13 @@ body.burger-menu.active {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
   gap: 3rem;
-  overflow: hidden;
+}
+
+.name {
+  font-family: 'BaseNeueTrial-SuperExpBlack' , sans-serif;
+  font-size: 2rem;
+  text-align: center;
 }
 
 /*MENU*/
@@ -209,15 +224,26 @@ body.burger-menu.active {
   display: none;
 }
 
+.main-project {
+    margin-top: 40px;
+  padding-bottom: 250px;
+}
 
-.project-header {
+.header-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
   margin-bottom: 30px;
   margin-top: 60px;
 }
+
+.project-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    margin-top: 60px;
+  }
 
 .project-header h1 {
   font-family: 'BaseNeueTrial-SuperExpBlack';
@@ -293,9 +319,48 @@ body.burger-menu.active {
   object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
 }
 
+.back-to-top-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.back-to-top-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.scrollToTop {
+  min-width: 50px;
+  height: 50px;
+  border: solid 1px var(--main-text-color);
+  border-radius: 50px;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Questrial', sans-serif;
+  font-size: 1.2rem;
+  color: var(--main-text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scrollToTop:hover {
+  background-color: var(--main-text-color);
+  color: var(--main-bg-color);
+}
+
+
 /*FOOTER*/
 .footer {
   margin-top: auto; /* Asegura que el footer se empuje hacia abajo */
+}
+
+.footer-desktop {
+  position: fixed;
+  bottom: 0;
 }
 
 .footer-desktop,
@@ -355,6 +420,8 @@ a.project-menu:hover ~ span {
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 90px
 }
 
 .about-wrapper {
