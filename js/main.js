@@ -126,3 +126,9 @@ if (currentPaletteIndex >= 0) {
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// Attach the scrollToTop function to the button
+const scrollToTopButton = document.getElementById('scrollToTop');
+if (scrollToTopButton) {
+  scrollToTopButton.addEventListener('click', scrollToTop);
+}
