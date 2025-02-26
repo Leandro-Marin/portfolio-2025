@@ -49,6 +49,24 @@ const colorPalettes = [
 // Function to update colors with a smooth transition
 function changeMood() {
   const savedIndex = parseInt(localStorage.getItem('selectedPalette'));
+  let currentPaletteIndex = isNaN(savedIndex) ? -1 : savedIndex; // Si no hay índice guardado, usa -1
+
+  currentPaletteIndex = (currentPaletteIndex + 1) % colorPalettes.length; // Mueve al siguiente color
+  const newColors = colorPalettes[currentPaletteIndex];
+  const root = document.documentElement;
+
+  console.log("Cambiando a paleta:", newColors); // Debug: ver si cambia
+
+  root.style.setProperty('--main-bg-color', newColors.bg);
+  root.style.setProperty('--main-text-color', newColors.text);
+
+  localStorage.setItem('selectedPalette', currentPaletteIndex.toString());
+}
+
+
+/* ----------DON'T TOUCH THIS CODE--------
+function changeMood() {
+  const savedIndex = parseInt(localStorage.getItem('selectedPalette'));
   currentPaletteIndex = (savedIndex + 1) % colorPalettes.length;
   const newColors = colorPalettes[currentPaletteIndex];
   const root = document.documentElement;
@@ -58,7 +76,7 @@ function changeMood() {
   
   // Save current index to localStorage
   localStorage.setItem('selectedPalette', currentPaletteIndex.toString());
-}
+}*/
 
 // Function to update colors with a smooth transition
 function changeMood1() {
@@ -106,6 +124,17 @@ if (document.readyState === 'interactive' || document.readyState === 'complete')
   document.addEventListener('DOMContentLoaded', initializeTheme);
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  // Selecciona todos los botones de cambio de mood
+  const moodButtons = document.querySelectorAll('.mood-button');
+
+  // Agrega evento de clic a cada botón
+  moodButtons.forEach(button => {
+    button.addEventListener('click', changeMood);
+  });
+});
+
+
 /*
 // Set initial colors based on saved index
 const root = document.documentElement;
@@ -132,3 +161,22 @@ const scrollToTopButton = document.getElementById('scrollToTop');
 if (scrollToTopButton) {
   scrollToTopButton.addEventListener('click', scrollToTop);
 }
+
+// Gallery Navigation
+const gallery = document.querySelector('.gallery');
+const prevBtn = document.querySelector('.gallery-nav.prev');
+const nextBtn = document.querySelector('.gallery-nav.next');
+
+prevBtn.addEventListener('click', () => {
+  gallery.scrollBy({
+    left: -gallery.offsetWidth,
+    behavior: 'smooth'
+  });
+});
+
+nextBtn.addEventListener('click', () => {
+  gallery.scrollBy({
+    left: gallery.offsetWidth,
+    behavior: 'smooth'
+  });
+});
