@@ -9,8 +9,8 @@
 
 @font-face {
   font-family: 'BaseNeueTrial-Regular';
-  src: url('font-base/BaseNeueTrial-Regular.woff2') format('woff2'),
-       url('font-base/BaseNeueTrial-Regular.woff') format('woff');
+  src: url('src/font-base/BaseNeueTrial-Regular.woff2') format('woff2'),
+       url('src/font-base/BaseNeueTrial-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
