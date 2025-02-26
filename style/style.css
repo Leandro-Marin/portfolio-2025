@@ -9,8 +9,8 @@
 
 @font-face {
   font-family: 'BaseNeueTrial-Regular';
-  src: url('fonts/BaseNeueTrial-Regular.woff2') format('woff2'),
-       url('fonts/BaseNeueTrial-Regular.woff') format('woff');
+  src: url('font-base/BaseNeueTrial-Regular.woff2') format('woff2'),
+       url('font-base/BaseNeueTrial-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -259,7 +259,7 @@ body.burger-menu.active {
 
 .project-description {
   text-align: center;
-  max-width: 15%;
+  max-width: 800px;
   margin: 15px auto 30px;
 }
 
@@ -406,6 +406,7 @@ body {
   z-index: 10;
   color: var(--main-text-color);
   font-size: 1.5rem;
+  line-height: 0;
 }
 
 .gallery-nav:hover {
