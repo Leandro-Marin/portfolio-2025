@@ -6,19 +6,18 @@
   --footer-height: 60px; /* Altezza del footer */
 }
 
-
 @font-face {
-  font-family: 'BaseNeueTrial-Regular';
-  src: url('.src/font-base/BaseNeueTrial-Regular.woff2') format('woff2'),
-       url('.src/font-base/BaseNeueTrial-Regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+    font-family: 'BaseNeueTrial-SuperExpBlack';
+    src: url('/font-base/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
+         url('/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
 
 @font-face {
   font-family: 'BaseNeueTrial-SuperExpBlack';
-  src: url('.src/font-base/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
-       url('.src/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff');
+  src: url('/font-base/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
+       url('/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }

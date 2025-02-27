@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
 /*
 // Set initial colors based on saved index
 const root = document.documentElement;
@@ -156,11 +155,12 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+/*
 // Attach the scrollToTop function to the button
 const scrollToTopButton = document.getElementById('scrollToTop');
 if (scrollToTopButton) {
   scrollToTopButton.addEventListener('click', scrollToTop);
-}
+}*/
 
 // Gallery Navigation
 const gallery = document.querySelector('.gallery');
