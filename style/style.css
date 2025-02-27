@@ -9,16 +9,16 @@
 
 @font-face {
   font-family: 'BaseNeueTrial-Regular';
-  src: url('src/font-base/BaseNeueTrial-Regular.woff2') format('woff2'),
-       url('src/font-base/BaseNeueTrial-Regular.woff') format('woff');
+  src: url('.src/font-base/BaseNeueTrial-Regular.woff2') format('woff2'),
+       url('.src/font-base/BaseNeueTrial-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'BaseNeueTrial-SuperExpBlack';
-  src: url('fonts/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
-       url('fonts/BaseNeueTrial-SuperExpBlack.woff') format('woff');
+  src: url('.src/font-base/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
+       url('.src/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff');
   font-weight: bold;
   font-style: normal;
 }
