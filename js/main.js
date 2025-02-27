@@ -163,20 +163,26 @@ if (scrollToTopButton) {
 }*/
 
 // Gallery Navigation
-const gallery = document.querySelector('.gallery');
-const prevBtn = document.querySelector('.gallery-nav.prev');
-const nextBtn = document.querySelector('.gallery-nav.next');
+document.addEventListener('DOMContentLoaded', () => {
+  const gallery = document.querySelector('.gallery');
+  const prevBtn = document.querySelector('.gallery-nav.prev');
+  const nextBtn = document.querySelector('.gallery-nav.next');
 
-prevBtn.addEventListener('click', () => {
-  gallery.scrollBy({
-    left: -gallery.offsetWidth,
-    behavior: 'smooth'
-  });
-});
+  if (prevBtn && nextBtn) { // Check if buttons exist
+    prevBtn.addEventListener('click', () => {
+      gallery.scrollBy({
+        left: -gallery.offsetWidth,
+        behavior: 'smooth'
+      });
+    });
 
-nextBtn.addEventListener('click', () => {
-  gallery.scrollBy({
-    left: gallery.offsetWidth,
-    behavior: 'smooth'
-  });
+    nextBtn.addEventListener('click', () => {
+      gallery.scrollBy({
+        left: gallery.offsetWidth,
+        behavior: 'smooth'
+      });
+    });
+  } else {
+    console.error('Gallery navigation buttons not found!');
+  }
 });
