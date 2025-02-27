@@ -7,19 +7,13 @@
 }
 
 @font-face {
-    font-family: 'BaseNeueTrial-SuperExpBlack';
-    src: url('src/font-base/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
-         url('src/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-  }
-
-@font-face {
   font-family: 'BaseNeueTrial-SuperExpBlack';
   src: url('src/font-base/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
-       url('src/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff');
+       url('src/font-base/BaseNeueTrial-SuperExpBlack.woff') format('woff'),
+       url('src/font-base/BaseNeueTrial-SuperExpBlack.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 * {
