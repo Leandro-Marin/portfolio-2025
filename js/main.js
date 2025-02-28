@@ -165,8 +165,8 @@ if (scrollToTopButton) {
 // Gallery Navigation
 document.addEventListener('DOMContentLoaded', () => {
   const gallery = document.querySelector('.gallery');
-  const prevBtn = document.querySelector('.gallery-nav.prev');
-  const nextBtn = document.querySelector('.gallery-nav.next');
+  const prevBtn = document.querySelector('.gallery-nav-prev');
+  const nextBtn = document.querySelector('.gallery-nav-next');
 
   if (prevBtn && nextBtn) { // Check if buttons exist
     prevBtn.addEventListener('click', () => {

@@ -43,7 +43,7 @@ body.theme-initialized {
   transition: opacity 0.4s ease-in-out;
 }
 
-
+/*---------NAVBAR---------*/
 .h1 {
   font-size: 2.5rem;
 }
@@ -115,6 +115,8 @@ body.burger-menu.active {
   background-color: var(--main-text-color) !important;
 }
 
+
+/*---------MAIN---------*/
 .main-content {
   flex: 1;
   display: flex;
@@ -130,7 +132,7 @@ body.burger-menu.active {
   text-align: center;
 }
 
-/*MENU*/
+/*---------MENU---------*/
 .main-content.main-menu {
   gap: 1.75rem;
   padding: 2rem;
@@ -205,7 +207,7 @@ body.burger-menu.active {
 }
 
 
-/*PROJECT*/
+/*---------PROJECT---------*/
 .main-content.main-projects {
   height: calc(100vh - 140px); /* Ajusta según la altura de navbar y footer */
   overflow-y: auto;
@@ -216,12 +218,6 @@ body.burger-menu.active {
 .main-content.main-projects::-webkit-scrollbar {
   display: none;
 }
-
-/*
-.main-project {
-  margin-top: 40px;
-  padding-bottom: 60px;
-} */
 
 .header-wrapper {
   display: flex;
@@ -337,52 +333,13 @@ body {
   overflow-x: hidden; /* Prevent horizontal scrollbar on the entire page */
 }
 
-/* Hide scrollbar for IE, Edge, and Firefox */
-.gallery-container {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Ensure no overflow on the body */
-body {
-  overflow-x: hidden; /* Prevent horizontal scrollbar on the entire page */
-}
-
-/*back to top button*/
-.back-to-top-container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-}
-
-/*
-.back-to-top {
-  min-width: 50px;
-  height: 50px;
-  border: solid 1px var(--main-text-color);
-  border-radius: 50px;
-  background: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Questrial', sans-serif;
-  font-size: 1.2rem;
-  color: var(--main-text-color);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.back-to-top:hover {
-  background-color: var(--main-text-color);
-  color: var(--main-bg-color);
-} */
-
 .arrow {
   display: inline-block;
   line-height: 1;
 }
 
-.gallery-nav {
+.gallery-nav-prev,
+.gallery-nav-next {
   position: absolute;
   top: 65%;
   transform: translateY(-50%);
@@ -402,21 +359,22 @@ body {
   line-height: 0;
 }
 
-.gallery-nav:hover {
+.gallery-nav-prev:hover,
+.gallery-nav-next:hover {
   background-color: var(--main-text-color);
   color: var(--main-bg-color);
 }
 
-.gallery-nav.prev {
+.gallery-nav-prev {
   left: 8%;
 }
 
-.gallery-nav.next {
+.gallery-nav-next {
   right: 8%;
 }
 
 
-/*FOOTER*/
+/*---------FOOTER---------*/
 .footer {
   margin-top: auto; /* Asegura que el footer se empuje hacia abajo */
 }
@@ -473,12 +431,12 @@ body {
   display: none;
 }
 
-/*EFFETTO ITALIC*/
+/*effetto italic*/
 a.project-menu:hover ~ span {
   font-style: italic;
 }
 
-/*ABOUT PAGE*/
+/*---------ABOUT---------*/
 .about-page {
   flex: 1;
   display: flex;
@@ -569,6 +527,9 @@ a.project-menu:hover ~ span {
   background-color: var(--main-text-color);
   color: var(--main-bg-color);
 }
+
+
+/*---------MEDIA QUERIES---------*/
 
 @media screen and (max-width: 768px) {
   .mood-desktop {
