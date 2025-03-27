@@ -8,9 +8,9 @@
 
 @font-face {
   font-family: 'BaseNeueTrial-SuperExpBlack';
-  src: url('/fonts/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
-       url('/fonts/BaseNeueTrial-SuperExpBlack.woff') format('woff'),
-       url('/fonts/BaseNeueTrial-SuperExpBlack.ttf') format('truetype');
+  src: url('/src/fonts/BaseNeueTrial-SuperExpBlack.woff2') format('woff2'),
+       url('/src/fonts/BaseNeueTrial-SuperExpBlack.woff') format('woff'),
+       url('/src/fonts/BaseNeueTrial-SuperExpBlack.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
