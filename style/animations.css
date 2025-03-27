@@ -1,11 +1,13 @@
-/* ANIMACIONES DE TEXTO */
+/* ANIMACIONES BASE */
 .animate-text {
   overflow: hidden;
+  will-change: transform;
 }
 
 .line-wrapper {
   overflow: hidden;
   padding: 0.1em 0;
+  will-change: transform;
 }
 
 .split-word {
@@ -17,14 +19,19 @@
   margin-right: 0.25em;
 }
 
-/* CIRCULO ANIMADO */
+/* CIRCULO ANIMADO - NÚCLEO */
 .circular-text {
   position: fixed;
   width: 200px;
   height: 200px;
   z-index: 1000;
-  animation: moveX 7s linear infinite alternate, moveY 5s linear infinite alternate;
-  transform: translate3d(0, 0, 0); /* Fix Chrome */
+  animation: moveX 7s linear infinite alternate, 
+             moveY 5s linear infinite alternate;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  pointer-events: none;
+  user-select: none;
 }
 
 .text-circle {
@@ -32,6 +39,7 @@
   width: 100%;
   height: 100%;
   animation: rotate 11s linear infinite;
+  will-change: transform;
 }
 
 .text-circle span {
@@ -43,9 +51,10 @@
   width: 20px;
   text-align: center;
   color: var(--main-text-color);
+  backface-visibility: hidden;
 }
 
-/* CONTENEDOR SVG - SOLUCIÓN CHROME/SAFARI */
+/* CONTENEDOR SVG - RENDIMIENTO CRUZADO */
 .svg-container {
   position: absolute;
   top: 50%;
@@ -56,6 +65,7 @@
   z-index: 2;
   animation: rotateReverse 11s linear infinite;
   backface-visibility: hidden;
+  will-change: transform;
 }
 
 .svg-container svg {
@@ -63,38 +73,81 @@
   height: 100%;
   display: block;
   shape-rendering: geometricPrecision;
+  transform: translateZ(0);
 }
 
 .svg-container svg path {
   fill: currentColor !important;
   stroke: none;
   vector-effect: non-scaling-stroke;
+  backface-visibility: hidden;
 }
 
-/* KEYFRAMES */
+/* KEYFRAMES OPTIMIZADOS */
 @keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { 
+    transform: rotate(0deg) translateZ(0);
+  }
+  100% { 
+    transform: rotate(360deg) translateZ(0);
+  }
 }
 
 @keyframes rotateReverse {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(-360deg); }
+  0% { 
+    transform: translate(-50%, -50%) rotate(0deg) translateZ(0);
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(-360deg) translateZ(0);
+  }
 }
 
 @keyframes moveX {
-  0% { left: 0; }
-  100% { left: calc(100% - 200px); }
+  0% { 
+    left: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  100% { 
+    left: calc(100% - 200px);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes moveY {
-  0% { top: 0; }
-  100% { top: calc(100vh - 200px); }
+  0% { 
+    top: 0;
+    transform: translate3d(0, 0, 0);
+  }
+  100% { 
+    top: calc(100vh - 200px);
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-/* SAFARI FIX */
+/* MEJORAS ESPECÍFICAS PARA SAFARI */
 @supports (-webkit-touch-callout: none) {
+  .circular-text,
+  .text-circle,
   .svg-container {
     -webkit-transform-style: preserve-3d;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  @keyframes rotate {
+    0% { 
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% { 
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+}
+
+/* MEDIA QUERIES PARA MÓVIL */
+@media screen and (max-width: 768px) {
+  .circular-text {
+    display: none; /* Ocultar en móviles si es necesario */
   }
 }
