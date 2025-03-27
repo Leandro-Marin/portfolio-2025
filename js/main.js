@@ -169,10 +169,12 @@ function createCircularText() {
   // SVG simplificado
   const svgContainer = document.createElement('div');
   svgContainer.className = 'svg-container';
+  // Ejemplo de SVG mínimo (solo una parte del path)
   svgContainer.innerHTML = `
-    <svg viewBox="0 0 500 500">
-      <path fill="currentColor" d="M366.47,455.52c-69.56,39.27-157.38,42.43-232.01.61C20.8,392.42-19.84,248.13,43.86,134.47,107.57,20.8,251.86-19.82,365.52,43.87h0c113.66,63.71,154.3,208,90.6,321.65-21.88,39.03-53.26,69.46-89.64,90ZM139.84,55.66c-34.41,19.42-64.08,48.19-84.76,85.1-60.24,107.48-21.81,243.92,85.67,304.16,107.47,60.24,243.92,21.81,304.15-85.67,60.24-107.47,21.81-243.92-85.67-304.15-70.56-39.55-153.62-36.56-219.39.57Z"/>
-    </svg>`;
+  <svg viewBox="0 0 500 500" width="120" height="120">
+    <path fill="currentColor" d="M366.47,455.52c-69.56,39.27-157.38,42.43-232.01.61C20.8..."/>
+  </svg>
+  `;
 
   circularText.appendChild(svgContainer);
   document.body.appendChild(circularText); // Añadir al body, no a .main-content
