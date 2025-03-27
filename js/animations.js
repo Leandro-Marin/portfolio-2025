@@ -1,8 +1,13 @@
-console.log('GSAP cargado?', !!window.gsap);
-console.log('ScrollTrigger cargado?', !!window.ScrollTrigger);
-import SplitType from 'split-type';
+// animations.js - Versión corregida
+const { gsap } = window;
+const { ScrollTrigger } = window;
 
-gsap.registerPlugin(ScrollTrigger);
+// Verificar que GSAP esté cargado
+if (!gsap || !ScrollTrigger) {
+  console.error('GSAP o ScrollTrigger no están disponibles');
+} else {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 class TextAnimations {
   constructor() {
@@ -10,20 +15,15 @@ class TextAnimations {
   }
 
   init() {
-    // Handle homepage animations differently
+    // Animaciones específicas por página
     if (window.location.pathname === '/' || window.location.pathname.includes('index.html')) {
       this.initHomeAnimations();
-    } 
-    // About page specific animations
-    else if (window.location.pathname.includes('about.html')) {
+      this.createCircularText(); // Añadir el círculo de texto solo en homepage
+    } else if (window.location.pathname.includes('about.html')) {
       this.initAboutAnimations();
-    }
-    // Menu page animations
-    else if (window.location.pathname.includes('menu.html')) {
+    } else if (window.location.pathname.includes('menu.html')) {
       this.initMenuAnimations();
-    }
-    // Project pages animations
-    else if (window.location.pathname.includes('project-')) {
+    } else if (window.location.pathname.includes('project-')) {
       this.initProjectAnimations();
     }
   }
@@ -37,47 +37,77 @@ class TextAnimations {
       }
     });
 
-    // Set initial states
+    // Estado inicial
     gsap.set('.name, .paragraph, .paragraph-desktop, .paragraph-mobile', {
       y: 50,
       opacity: 0
     });
 
-    // Animate title first
-    timeline.to('.name', {
-      y: 0,
-      opacity: 1,
-      duration: 1,
-      ease: 'power2.out'
-    })
-    // Then animate first paragraph
-    .to('.paragraph', {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: 'power2.out'
-    }, '+=0.05')
-    // Finally animate the desktop/mobile paragraphs
-    .to(['.paragraph-desktop', '.paragraph-mobile'], {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: 'power2.out'
-    }, '+=0.05');
+    // Animaciones
+    timeline
+      .to('.name', {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.out'
+      })
+      .to('.paragraph', {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, '+=0.05')
+      .to(['.paragraph-desktop', '.paragraph-mobile'], {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, '+=0.05');
+  }
+
+  createCircularText() {
+    const circularText = document.createElement('div');
+    circularText.className = 'circular-text';
+    
+    const textCircle = document.createElement('div');
+    textCircle.className = 'text-circle';
+    
+    const text = 'WELCOME · nice to meet you · WELCOME · nice to meet you · ';
+    const chars = text.split('');
+    const angleStep = 360 / chars.length;
+    
+    chars.forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      span.style.transform = `rotate(${angleStep * i}deg)`;
+      span.style.fontFamily = (char === 'W' || char === 'E' || char === 'L' || char === 'C' || char === 'O' || char === 'M') 
+        ? '"BaseNeueTrial-SuperExpBlack", sans-serif' 
+        : '"Questrial", sans-serif';
+      textCircle.appendChild(span);
+    });
+    
+    const svgContainer = document.createElement('div');
+    svgContainer.className = 'svg-container';
+    svgContainer.innerHTML = `
+      <svg viewBox="0 0 500 500" width="120" height="120">
+        <path fill="currentColor" d="M366.47,455.52c-69.56,39.27-157.38,42.43-232.01.61C20.8,392.42-19.84,248.13,43.86,134.47,107.57,20.8,251.86-19.82,365.52,43.87h0c113.66,63.71,154.3,208,90.6,321.65-21.88,39.03-53.26,69.46-89.64,90ZM139.84,55.66c-34.41,19.42-64.08,48.19-84.76,85.1-60.24,107.48-21.81,243.92,85.67,304.16,107.47,60.24,243.92,21.81,304.15-85.67,60.24-107.47,21.81-243.92-85.67-304.15-70.56-39.55-153.62-36.56-219.39.57Z"/>
+      </svg>`;
+    
+    circularText.appendChild(textCircle);
+    circularText.appendChild(svgContainer);
+    document.body.appendChild(circularText);
   }
 
   initMenuAnimations() {
     const projects = document.querySelectorAll('.animate-project');
     
-    // Set initial states
     gsap.set(projects, {
       y: 50,
       opacity: 0
     });
 
-    // Create timeline for projects with a delay
     const timeline = gsap.timeline({
-      delay: 0.5, // Add initial delay
+      delay: 0.5,
       scrollTrigger: {
         trigger: '.main-menu',
         start: 'top 80%',
@@ -85,7 +115,6 @@ class TextAnimations {
       }
     });
 
-    // Animate each project with a stagger effect
     timeline.to(projects, {
       y: 0,
       opacity: 1,
@@ -104,7 +133,6 @@ class TextAnimations {
       }
     });
 
-    // Set initial states
     gsap.set([
       '.profile-picture-mobile',
       '.about-title',
@@ -116,7 +144,6 @@ class TextAnimations {
       opacity: 0
     });
 
-    // Profile picture animation (mobile)
     if (document.querySelector('.profile-picture-mobile')) {
       timeline.to('.profile-picture-mobile', {
         y: 0,
@@ -126,7 +153,6 @@ class TextAnimations {
       });
     }
 
-    // Title animation
     timeline.to('.about-title', {
       y: 0,
       opacity: 1,
@@ -134,7 +160,6 @@ class TextAnimations {
       ease: 'power2.out'
     }, '+=0.1');
 
-    // Paragraphs animation
     const paragraphs = document.querySelectorAll('.about-paragraphs p');
     paragraphs.forEach((paragraph, index) => {
       timeline.to(paragraph, {
@@ -145,10 +170,8 @@ class TextAnimations {
       }, '+=0.05');
     });
 
-    // Animate boxes and download button together
     const boxesTimeline = gsap.timeline({}, "+=0.1");
     
-    // Boxes animation
     const boxes = document.querySelectorAll('.box');
     boxes.forEach((box, index) => {
       boxesTimeline.to(box, {
@@ -156,10 +179,9 @@ class TextAnimations {
         opacity: 1,
         duration: 0.4,
         ease: 'power2.out'
-      }, index * 0.1); // Reduced stagger time
+      }, index * 0.1);
     });
 
-    // Download button animation - starts with the boxes
     const downloadBtn = document.querySelector('.button-download');
     if (downloadBtn) {
       boxesTimeline.to(downloadBtn, {
@@ -167,17 +189,15 @@ class TextAnimations {
         opacity: 1,
         duration: 1,
         ease: 'power2.out'
-      }, 0); // Start at the same time as boxes
+      }, 0);
     }
 
-    // Add boxes timeline to main timeline
     timeline.add(boxesTimeline);
   }
 
   initProjectAnimations() {
     const timeline = gsap.timeline();
 
-    // Set initial states
     gsap.set([
       '.project-header p',
       '.project-header h1',
@@ -190,33 +210,32 @@ class TextAnimations {
       opacity: 0
     });
 
-    // Animate header elements together
-    timeline.to(['.project-header h1', '.project-header p'], {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out'
-    })
-    .to('.project-description', {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: 'power2.out'
-    }, '+=0.2')
-    .to('.buttons', {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: 'power2.out'
-    }, '+=0.2')
-    .to('.scroll-down-btn', {
-      y: 0,
-      opacity: 1,
-      duration: 0.4,
-      ease: 'power2.out'
-    }, '+=0.05');
+    timeline
+      .to(['.project-header h1', '.project-header p'], {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out'
+      })
+      .to('.project-description', {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, '+=0.2')
+      .to('.buttons', {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, '+=0.2')
+      .to('.scroll-down-btn', {
+        y: 0,
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      }, '+=0.05');
 
-    // Gallery items animation
     const galleryTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: '.gallery-section',
@@ -235,10 +254,11 @@ class TextAnimations {
   }
 }
 
-// Initialize animations when DOM is ready
+// Inicialización segura
 document.addEventListener('DOMContentLoaded', () => {
-  new TextAnimations();
+  if (window.gsap && window.ScrollTrigger) {
+    new TextAnimations();
+  } else {
+    console.error('GSAP/ScrollTrigger no están disponibles');
+  }
 });
-
-// Añade esto temporalmente al final de animations.js
-gsap.to('body', {duration: 1, backgroundColor: '#f0f'});
