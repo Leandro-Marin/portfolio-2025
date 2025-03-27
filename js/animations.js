@@ -1,5 +1,5 @@
-const { gsap } = window;
-gsap.registerPlugin(ScrollTrigger);
+console.log('GSAP cargado?', !!window.gsap);
+console.log('ScrollTrigger cargado?', !!window.ScrollTrigger);
 import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -239,3 +239,6 @@ class TextAnimations {
 document.addEventListener('DOMContentLoaded', () => {
   new TextAnimations();
 });
+
+// Añade esto temporalmente al final de animations.js
+gsap.to('body', {duration: 1, backgroundColor: '#f0f'});
