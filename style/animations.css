@@ -1,0 +1,18 @@
+.animate-text {
+  overflow: hidden;
+}
+
+.line-wrapper {
+  overflow: hidden;
+  padding: 0.1em 0;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Ensure proper spacing between words */
+.split-word:not(:last-child) {
+  margin-right: 0.25em;
+}

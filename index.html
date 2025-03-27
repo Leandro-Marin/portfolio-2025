@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandro Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="/src/favicon.svg">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/loading.css">
+    <link rel="stylesheet" href="style/transitions.css">
+    <link rel="stylesheet" href="style/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="loading-screen">
+      <div class="loading-container">
+        <div class="loading-counter">0</div>
+        <div class="loading-bar">
+          <div class="loading-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="navbar">
+      <div class="navbar-content">
+        <button class="mood-button mood-desktop">CHANGE<br>MOOD</button>
+        <div class="burger-menu">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <div class="nav-links">
+          <a href="index.html">home</a>
+          <a href="menu.html">projects</a>
+          <a href="about.html">about</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="name">
+        <h1 class="animate-text">Leandro Marin</h1>
+      </div>
+
+      <div class="paragraph">
+        <p class="animate-text">IS A Visual + UX/UI Designer.<br>Playing with colors and fonts.<br>Spanish, based in Rome.</p>
+      </div>
+
+      <div class="paragraph-desktop">
+        <p class="animate-text">I'M LEANDRO, A VISUAL DESIGNER BY DAY AND A UX/UI DESIGNER ADDICTED TO DIGITAL<br> AMBIENTS BY NIGHT. A SPANISH GUY, BORN IN 1992, PASSIONATE ABOUT ART AND DESIGN<br> IN ALL ITS FORMS. MY HEAD IS LIKE A BASQUIAT PAINTING: FULL OF IDEAS, COLOR PALETTES,<br> AND PROJECTS WAITING TO COME TO LIFE.</p>
+      </div>
+
+      <div class="paragraph-mobile">
+        <p class="animate-text">I'M LEANDRO, A GRAPHIC DESIGNER BY DAY AND A VISUAL ART ADDICTED BY NIGHT. 
+        A SPANISH BOY, BORN IN 1992 AND PASSIONATE ABOUT ART AND DESIGN IN ALL ITS FORMS. 
+        MY HEAD LOOKS LIKE A BASQUIAT PAINTING: FULL OF IDEAS, DREAMS AND PROJECTS TO REALIZE.</p>
+      </div>
+    </main>
+
+    <footer class="footer-desktop">
+      <div class="footer-content">
+        <button class="mood-button">CHANGE<br>MOOD</button>
+        <div class="social-links">
+          <a href="https://www.instagram.com/justpurplebubble/" target="_blank" rel="noopener noreferrer">instagram</a>
+          <a href="https://www.behance.net/leanmablas87e7" target="_blank" rel="noopener noreferrer">behance</a>
+          <a href="https://www.linkedin.com/in/leandro-marin-26a5261a8/" target="_blank" rel="noopener noreferrer">linkedin</a>
+        </div>
+        <div class="copyright">
+          ©2025
+        </div>
+      </div>
+    </footer>
+
+    <footer class="footer-mobile">
+      <div class="footer-content">
+        <div class="social-links">
+          <a href="https://www.instagram.com/justpurplebubble/" target="_blank" rel="noopener noreferrer">instagram</a>
+          <a href="https://www.behance.net/leanmablas87e7" target="_blank" rel="noopener noreferrer">behance</a>
+          <a href="https://www.linkedin.com/in/leandro-marin-26a5261a8/" target="_blank" rel="noopener noreferrer">linkedin</a>
+        </div>
+        <div class="copyright">
+          ©2025
+        </div>
+      </div>
+    </footer>
+
+    <!-- GSAP Core (obligatorio) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+    <!-- Plugins de GSAP (como ScrollTrigger) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script type="module" src="dist/assets/index-CFoufKtE.js"></script>
+
+    <script type="module" src="js/loading.js"></script>
+    <script type="module" src="js/transitions.js"></script>
+    <script type="module" src="js/animations.js"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
