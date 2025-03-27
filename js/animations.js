@@ -1,5 +1,5 @@
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+const { gsap } = window;
+gsap.registerPlugin(ScrollTrigger);
 import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger);
