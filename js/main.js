@@ -141,32 +141,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Función para crear el texto circular
-function createCircularText() {
+// Create circular text
+if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
   const circularText = document.createElement('div');
   circularText.className = 'circular-text';
-  circularText.style.background = 'rgba(255, 0, 0, 0.3)'; // Forzamos el fondo rojo para debug
-
+  
   const textCircle = document.createElement('div');
   textCircle.className = 'text-circle';
-
+  
+  // Split the text into two parts with different fonts
   const text = 'WELCOME · nice to meet you · WELCOME · nice to meet you · ';
   const chars = text.split('');
   const angleStep = 360 / chars.length;
-
+  
   chars.forEach((char, i) => {
     const span = document.createElement('span');
     span.textContent = char;
     span.style.transform = `rotate(${angleStep * i}deg)`;
-    span.style.fontFamily = (char === 'W' || char === 'E' || char === 'L' || char === 'C' || char === 'O' || char === 'M') 
-      ? '"BaseNeueTrial-SuperExpBlack", sans-serif' 
-      : '"Questrial", sans-serif';
+    
+    // Apply BaseNeueTrial-SuperExpBlack font to "WELCOME" characters
+    if (char === 'W' || char === 'E' || char === 'L' || char === 'C' || char === 'O' || char === 'M') {
+      span.style.fontFamily = 'BaseNeueTrial-SuperExpBlack';
+    } else {
+      span.style.fontFamily = 'Questrial';
+    }
+    
     textCircle.appendChild(span);
   });
-
-  circularText.appendChild(textCircle);
-
-  // SVG simplificado
+  
   const svgContainer = document.createElement('div');
   svgContainer.className = 'svg-container';
   svgContainer.innerHTML = `<?xml version="1.0" encoding="UTF-8"?>
@@ -178,12 +180,9 @@ function createCircularText() {
       <path class="c" d="M205.28,174.87c-12.06,6.81-9.53,34.12,5.65,61,15.18,26.88,37.26,43.16,49.32,36.35,12.06-6.81,9.53-34.12-5.65-61-15.18-26.88-37.26-43.16-49.32-36.35Z"/>
       <path class="c" d="M331.36,393.52c-11.42,6.45-23.71,11.57-36.66,15.22-42.4,11.94-86.91,6.66-125.34-14.88-16.42-9.2-30.99-20.98-43.31-35.01-2.34-2.67-2.08-6.72.59-9.07,2.62-2.35,6.72-2.08,9.07.59,11.36,12.92,24.79,23.79,39.94,32.27,35.43,19.86,76.48,24.73,115.57,13.72,39.09-11.01,71.56-36.59,91.41-72.02,19.86-35.43,24.73-76.48,13.72-115.57-.96-3.41,1.02-6.97,4.44-7.93,3.42-.96,6.97,1.03,7.93,4.44,11.94,42.4,6.66,86.91-14.88,125.34-14.96,26.69-36.51,48.22-62.49,62.89Z"/>
     </svg>`;
-
+  
+  circularText.appendChild(textCircle);
   circularText.appendChild(svgContainer);
-  document.body.appendChild(circularText); // Añadir al body, no a .main-content
-}
-
-// Ejecutar al cargar (sin depender de DOMContentLoaded)
-if (window.location.pathname.endsWith('/') || window.location.pathname.includes('index.html')) {
-  createCircularText();
+  
+  document.querySelector('.main-content').appendChild(circularText);
 }
