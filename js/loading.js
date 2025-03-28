@@ -9,13 +9,18 @@ class LoadingScreen {
   }
 
   static shouldShow() {
-    const hasVisited = localStorage.getItem('hasVisited');
-    const isRefresh = performance.navigation.type === performance.navigation.TYPE_RELOAD;
-    
-    if (!hasVisited || isRefresh) {
-      localStorage.setItem('hasVisited', 'true');
+    // Muestra siempre en refrescos
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
       return true;
     }
+    
+    // Usa sessionStorage para la sesión actual
+    const hasShown = sessionStorage.getItem('loadingShown');
+    if (!hasShown) {
+      sessionStorage.setItem('loadingShown', 'true');
+      return true;
+    }
+    
     return false;
   }
 
