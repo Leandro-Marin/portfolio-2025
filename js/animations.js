@@ -1,46 +1,42 @@
+const { gsap } = window;
+const { ScrollTrigger } = window;
+
 class TextAnimations {
   constructor() {
+    if (!window.gsap) {
+      console.error('❌ GSAP no está cargado');
+      return;
+    }
+    
+    gsap.registerPlugin(ScrollTrigger);
     this.init();
+    console.log('✨ Animaciones inicializadas');
   }
 
   init() {
-    if (!window.gsap || !window.ScrollTrigger) {
-      console.error('GSAP no está disponible');
-      return;
-    }
-
-    gsap.config({
-      force3D: true,
-      compatibility: {
-        noPrefix: true
-      }
-    });
-
-    this.setupPageAnimations();
-  }
-
-  setupPageAnimations() {
-    const path = window.location.pathname.split('/').pop() || 'index.html';
+    const path = window.location.pathname;
     
-    if (path === 'index.html' || path === '') {
+    if (path === '/' || path.includes('index.html')) {
       this.initHomeAnimations();
       this.createCircularText();
-    } else if (path === 'about.html') {
+    } else if (path.includes('about.html')) {
       this.initAboutAnimations();
-    } else if (path === 'menu.html') {
+    } else if (path.includes('menu.html')) {
       this.initMenuAnimations();
     } else if (path.includes('project-')) {
       this.initProjectAnimations();
     }
   }
 
+  /* ======================= */
+  /*   CIRCLE TEXT & SVG      */
+  /* ======================= */
   createCircularText() {
-    if (document.querySelector('.circular-text')) return;
-
     const circularText = document.createElement('div');
     circularText.className = 'circular-text';
     circularText.setAttribute('aria-hidden', 'true');
 
+    // Text Circle
     const textCircle = document.createElement('div');
     textCircle.className = 'text-circle';
     
@@ -58,6 +54,7 @@ class TextAnimations {
       textCircle.appendChild(span);
     });
 
+    // SVG Construction
     const svgContainer = document.createElement('div');
     svgContainer.className = 'svg-container';
     
@@ -87,35 +84,51 @@ class TextAnimations {
     circularText.appendChild(textCircle);
     circularText.appendChild(svgContainer);
     document.body.appendChild(circularText);
-
-    gsap.to('.circular-text', {
-      rotation: 360,
-      duration: 20,
-      repeat: -1,
-      ease: 'none'
-    });
   }
 
+  /* ======================= */
+  /*   HOME PAGE ANIMATIONS   */
+  /* ======================= */
   initHomeAnimations() {
-    gsap.utils.toArray(['.name', '.paragraph', '.paragraph-desktop', '.paragraph-mobile']).forEach(el => {
-      gsap.fromTo(el, 
-        { y: 50, opacity: 0 },
-        { 
-          y: 0, 
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power2.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: '.main-content',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
+    // Initial Setup
+    gsap.set(['.name', '.paragraph', '.paragraph-desktop', '.paragraph-mobile'], {
+      y: 50,
+      opacity: 0,
+      willChange: 'transform, opacity'
     });
+
+    // Main Timeline
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.main-content',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    tl.to('.name', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power2.out'
+    })
+    .to('.paragraph', {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power2.out'
+    }, '+=0.05')
+    .to(['.paragraph-desktop', '.paragraph-mobile'], {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power2.out'
+    }, '+=0.05');
   }
 
+  /* ======================= */
+  /*   MENU PAGE ANIMATIONS   */
+  /* ======================= */
   initMenuAnimations() {
     const projects = document.querySelectorAll('.animate-project');
     
@@ -143,6 +156,9 @@ class TextAnimations {
     });
   }
 
+  /* ======================= */
+  /*   ABOUT PAGE ANIMATIONS  */
+  /* ======================= */
   initAboutAnimations() {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -152,6 +168,7 @@ class TextAnimations {
       }
     });
 
+    // Initial States
     gsap.set([
       '.profile-picture-mobile',
       '.about-title',
@@ -164,6 +181,7 @@ class TextAnimations {
       willChange: 'transform, opacity'
     });
 
+    // Animations
     if (document.querySelector('.profile-picture-mobile')) {
       tl.to('.profile-picture-mobile', {
         y: 0,
@@ -189,6 +207,7 @@ class TextAnimations {
       }, i === 0 ? '+=0.1' : '+=0.05');
     });
 
+    // Boxes Timeline
     const boxesTl = gsap.timeline();
     document.querySelectorAll('.box').forEach((box, i) => {
       boxesTl.to(box, {
@@ -212,9 +231,13 @@ class TextAnimations {
     tl.add(boxesTl);
   }
 
+  /* ======================= */
+  /*  PROJECT PAGE ANIMATIONS */
+  /* ======================= */
   initProjectAnimations() {
     const mainTl = gsap.timeline();
 
+    // Initial States
     gsap.set([
       '.project-header p',
       '.project-header h1',
@@ -228,6 +251,7 @@ class TextAnimations {
       willChange: 'transform, opacity'
     });
 
+    // Header Animations
     mainTl
       .to(['.project-header h1', '.project-header p'], {
         y: 0,
@@ -254,6 +278,7 @@ class TextAnimations {
         ease: 'power2.out'
       }, '+=0.05');
 
+    // Gallery Animations
     const galleryTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.gallery-section',
@@ -272,15 +297,11 @@ class TextAnimations {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.gsap && window.ScrollTrigger) {
+// Smart Initialization
+if (document.readyState === 'complete') {
+  new TextAnimations();
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
     new TextAnimations();
-  } else {
-    const checkInterval = setInterval(() => {
-      if (window.gsap && window.ScrollTrigger) {
-        clearInterval(checkInterval);
-        new TextAnimations();
-      }
-    }, 100);
-  }
-});
+  });
+}
