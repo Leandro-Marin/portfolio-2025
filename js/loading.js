@@ -9,22 +9,25 @@ class LoadingScreen {
     this.navigationChecked = false;
   }
 
+  // MÉTODO ACTUALIZADO (PUNTO 3)
   static shouldShow() {
-    // Detectar si es una navegación SPA (Single Page Application)
+    // 1. Si es una navegación entre páginas (no carga inicial), no mostrar loading
+    if (sessionStorage.getItem('isSPANavigation')) {
+      sessionStorage.removeItem('isSPANavigation');
+      return false;
+    }
+
+    // 2. Detectar tipo de carga usando Performance API (navegadores modernos)
     if (window.performance && window.performance.getEntriesByType) {
       const navEntries = performance.getEntriesByType('navigation');
       if (navEntries.length > 0) {
-        const navType = navEntries[0].type;
-        
-        // Mostrar solo en carga inicial o refresh
-        return navType === 'navigate' || navType === 'reload';
+        return navEntries[0].type === 'navigate' || navEntries[0].type === 'reload';
       }
     }
     
-    // Fallback para navegadores antiguos
+    // 3. Fallback para navegadores antiguos
     return !sessionStorage.getItem('alreadyLoaded');
   }
-
   start() {
     if (!this.loadingScreen) return;
 
