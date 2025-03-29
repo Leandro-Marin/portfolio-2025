@@ -136,5 +136,32 @@
 
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/animations.js"></script>
+
+    <script>
+      // Interceptar clicks en enlaces para navegación SPA
+      document.addEventListener('DOMContentLoaded', function() {
+        // Manejar todos los clicks en enlaces internos
+        document.body.addEventListener('click', function(e) {
+          if (e.target.tagName === 'A' && e.target.href) {
+            const url = new URL(e.target.href);
+            
+            // Si es un enlace interno (mismo dominio)
+            if (url.hostname === window.location.hostname) {
+              e.preventDefault();
+              
+              // Usar sessionStorage para marcar que no es una carga inicial
+              sessionStorage.setItem('isSPANavigation', 'true');
+              window.location.href = url.href;
+            }
+          }
+        });
+    
+        // Manejar el botón de retroceso/avance
+        window.addEventListener('popstate', function() {
+          sessionStorage.setItem('isSPANavigation', 'true');
+        });
+      });
+    </script>
+    
   </body>
 </html>

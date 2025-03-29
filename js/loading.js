@@ -6,29 +6,34 @@ class LoadingScreen {
     this.currentProgress = 0;
     this.targetProgress = 0;
     this.isLoading = true;
+    this.navigationChecked = false;
   }
 
   static shouldShow() {
-    // Siempre muestra la loading screen si no hay hash (primera carga)
-    if (!window.location.hash) {
-      return true;
+    // Detectar si es una navegación SPA (Single Page Application)
+    if (window.performance && window.performance.getEntriesByType) {
+      const navEntries = performance.getEntriesByType('navigation');
+      if (navEntries.length > 0) {
+        const navType = navEntries[0].type;
+        
+        // Mostrar solo en carga inicial o refresh
+        return navType === 'navigate' || navType === 'reload';
+      }
     }
     
-    const hasVisited = localStorage.getItem('hasVisited');
-    const isRefresh = performance.navigation.type === performance.navigation.TYPE_RELOAD;
-    
-    if (!hasVisited || isRefresh) {
-      localStorage.setItem('hasVisited', 'true');
-      return true;
-    }
-    return false;
+    // Fallback para navegadores antiguos
+    return !sessionStorage.getItem('alreadyLoaded');
   }
 
   start() {
+    if (!this.loadingScreen) return;
+
     if (!LoadingScreen.shouldShow()) {
       this.skipLoading();
       return;
     }
+
+    sessionStorage.setItem('alreadyLoaded', 'true');
     this.animate();
     this.simulateLoading();
   }
@@ -100,3 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const loader = new LoadingScreen();
   loader.start();
 });
+
+// Inicialización mejorada
+if (document.readyState === 'complete') {
+  new LoadingScreen().start();
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
+    new LoadingScreen().start();
+  });
+}
