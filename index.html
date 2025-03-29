@@ -85,28 +85,42 @@
       </div>
     </footer>
 
-    <script>
-        // Precarga GSAP para mejor rendimiento
-        if (!window.gsap) {
-          const gsapScript = document.createElement('script');
-          gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-          gsapScript.async = true;
-          gsapScript.onload = function() {
-            const stScript = document.createElement('script');
-            stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-            document.body.appendChild(stScript);
-          };
-          document.body.appendChild(gsapScript);
-        }
-    </script>
+  <!-- Carga de GSAP con soporte para Safari -->
+<script>
+  // Función para cargar GSAP solo si no está disponible
+  function loadGSAP() {
+    if (!window.gsap) {
+      const gsapScript = document.createElement('script');
+      gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+      
+      // Configuración especial para Safari
+      gsapScript.crossOrigin = 'anonymous';
+      gsapScript.async = false; // Importante para Safari
+      
+      gsapScript.onload = function() {
+        // Cargar ScrollTrigger después de GSAP
+        const stScript = document.createElement('script');
+        stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+        stScript.async = false; // Importante para Safari
+        document.body.appendChild(stScript);
+      };
+      
+      document.body.appendChild(gsapScript);
+    }
+  }
 
-    <script src="js/loading.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/main.js"></script>
+  // Llamar a la función cuando el DOM esté listo
+  if (document.readyState === 'complete') {
+    loadGSAP();
+  } else {
+    document.addEventListener('DOMContentLoaded', loadGSAP);
+  }
+</script>
 
-
-    <script type="module" src="dist/assets/index-CFoufKtE.js"></script>
+<!-- Tus scripts (asegúrate de que esperen a que GSAP esté listo) -->
+<script src="js/loading.js"></script>
+<script src="js/transitions.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/main.js"></script>
   </body>
 </html>

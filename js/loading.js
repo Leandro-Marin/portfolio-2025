@@ -6,10 +6,38 @@ class LoadingScreen {
     this.currentProgress = 0;
     this.targetProgress = 0;
     this.isLoading = true;
+  }
+
+  static shouldShow() {
+    // Muestra siempre en refrescos
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      return true;
+    }
     
-    // Mostrar siempre la loading screen (eliminamos la lógica condicional)
+    // Usa sessionStorage para la sesión actual
+    const hasShown = sessionStorage.getItem('loadingShown');
+    if (!hasShown) {
+      sessionStorage.setItem('loadingShown', 'true');
+      return true;
+    }
+    
+    return false;
+  }
+
+  start() {
+    if (!LoadingScreen.shouldShow()) {
+      this.skipLoading();
+      return;
+    }
     this.animate();
     this.simulateLoading();
+  }
+
+  skipLoading() {
+    if (this.loadingScreen) {
+      this.loadingScreen.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
   }
 
   animate() {
@@ -67,18 +95,8 @@ class LoadingScreen {
   }
 }
 
-// Inicialización mejorada con verificación de elementos
-function initLoadingScreen() {
-  const loadingScreenExists = document.querySelector('.loading-screen');
-  if (loadingScreenExists && !window.loadingScreenInitialized) {
-    window.loadingScreenInitialized = true;
-    new LoadingScreen();
-  }
-}
-
-// Iniciar cuando el DOM esté listo
-if (document.readyState === 'complete') {
-  initLoadingScreen();
-} else {
-  document.addEventListener('DOMContentLoaded', initLoadingScreen);
-}
+// Initialize loading screen when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  const loader = new LoadingScreen();
+  loader.start();
+});
