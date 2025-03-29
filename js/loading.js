@@ -8,15 +8,13 @@ class LoadingScreen {
     this.isLoading = true;
   }
 
+  // Método estático para determinar si se debe mostrar la pantalla de carga
   static shouldShow() {
-    // Muestra siempre en refrescos
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      return true;
-    }
-    
-    // Usa sessionStorage para la sesión actual
+    // Verificar si es la primera visita en esta sesión
     const hasShown = sessionStorage.getItem('loadingShown');
-    if (!hasShown) {
+    
+    // Mostrar siempre en la primera visita o si forzamos recarga
+    if (!hasShown || performance.getEntriesByType("navigation")[0].type === "reload") {
       sessionStorage.setItem('loadingShown', 'true');
       return true;
     }
