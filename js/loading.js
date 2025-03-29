@@ -9,6 +9,11 @@ class LoadingScreen {
   }
 
   static shouldShow() {
+    // Siempre muestra la loading screen si no hay hash (primera carga)
+    if (!window.location.hash) {
+      return true;
+    }
+    
     const hasVisited = localStorage.getItem('hasVisited');
     const isRefresh = performance.navigation.type === performance.navigation.TYPE_RELOAD;
     

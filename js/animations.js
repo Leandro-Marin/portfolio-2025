@@ -40,7 +40,7 @@ class TextAnimations {
     const textCircle = document.createElement('div');
     textCircle.className = 'text-circle';
     
-    const text = 'WELCOME · nice to meet you · WELCOME · nice to meet you · ';
+    const text = 'HOLA · nice to meet you · HOLA · nice to meet you · ';
     const chars = text.split('');
     const angleStep = 360 / chars.length;
     
@@ -48,7 +48,7 @@ class TextAnimations {
       const span = document.createElement('span');
       span.textContent = char;
       span.style.transform = `rotate(${angleStep * i}deg)`;
-      span.style.fontFamily = (['W','E','L','C','O','M'].includes(char)) 
+      span.style.fontFamily = (['H','O','L','A'].includes(char)) 
         ? '"BaseNeueTrial-SuperExpBlack", sans-serif' 
         : '"Questrial", sans-serif';
       textCircle.appendChild(span);
