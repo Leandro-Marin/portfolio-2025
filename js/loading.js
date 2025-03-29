@@ -6,36 +6,10 @@ class LoadingScreen {
     this.currentProgress = 0;
     this.targetProgress = 0;
     this.isLoading = true;
-  }
-
-  // Método estático para determinar si se debe mostrar la pantalla de carga
-  static shouldShow() {
-    // Verificar si es la primera visita en esta sesión
-    const hasShown = sessionStorage.getItem('loadingShown');
     
-    // Mostrar siempre en la primera visita o si forzamos recarga
-    if (!hasShown || performance.getEntriesByType("navigation")[0].type === "reload") {
-      sessionStorage.setItem('loadingShown', 'true');
-      return true;
-    }
-    
-    return false;
-  }
-
-  start() {
-    if (!LoadingScreen.shouldShow()) {
-      this.skipLoading();
-      return;
-    }
+    // Mostrar siempre la loading screen (eliminamos la lógica condicional)
     this.animate();
     this.simulateLoading();
-  }
-
-  skipLoading() {
-    if (this.loadingScreen) {
-      this.loadingScreen.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    }
   }
 
   animate() {
@@ -93,8 +67,18 @@ class LoadingScreen {
   }
 }
 
-// Initialize loading screen when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  const loader = new LoadingScreen();
-  loader.start();
-});
+// Inicialización mejorada con verificación de elementos
+function initLoadingScreen() {
+  const loadingScreenExists = document.querySelector('.loading-screen');
+  if (loadingScreenExists && !window.loadingScreenInitialized) {
+    window.loadingScreenInitialized = true;
+    new LoadingScreen();
+  }
+}
+
+// Iniciar cuando el DOM esté listo
+if (document.readyState === 'complete') {
+  initLoadingScreen();
+} else {
+  document.addEventListener('DOMContentLoaded', initLoadingScreen);
+}

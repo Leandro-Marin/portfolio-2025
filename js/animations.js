@@ -1,4 +1,3 @@
-// animations.js - Código completo optimizado para Safari y GSAP
 class TextAnimations {
   constructor() {
     this.checkDependencies();
@@ -16,12 +15,12 @@ class TextAnimations {
   loadGSAPDependencies() {
     const gsapScript = document.createElement('script');
     gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-    gsapScript.async = false; // Crucial para Safari
+    gsapScript.async = false;
     
     gsapScript.onload = () => {
       const stScript = document.createElement('script');
       stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-      stScript.async = false; // Crucial para Safari
+      stScript.async = false;
       
       stScript.onload = () => {
         gsap.registerPlugin(ScrollTrigger);
@@ -37,7 +36,6 @@ class TextAnimations {
   init() {
     console.log('✨ Animaciones inicializadas con GSAP', gsap.version);
     
-    // Verificación final de dependencias
     if (!window.gsap || !window.ScrollTrigger) {
       console.error('❌ GSAP/ScrollTrigger no disponibles después de carga');
       return;
@@ -57,11 +55,7 @@ class TextAnimations {
     }
   }
 
-  /* ======================= */
-  /*   CIRCLE TEXT & SVG      */
-  /* ======================= */
   createCircularText() {
-    // Solo crear si estamos en la página de inicio
     if (window.location.pathname !== '/' && !window.location.pathname.includes('index.html')) {
       return;
     }
@@ -108,7 +102,7 @@ class TextAnimations {
     document.querySelector('.main-content').appendChild(circularText);
   
     // Animar el círculo
-    window.gsap.to('.circular-text', {
+    gsap.to('.circular-text', {
       x: window.innerWidth - 200,
       y: window.innerHeight - 200,
       duration: 7,
@@ -117,14 +111,14 @@ class TextAnimations {
       yoyo: true
     });
   
-    window.gsap.to('.text-circle', {
+    gsap.to('.text-circle', {
       rotation: 360,
       duration: 11,
       repeat: -1,
       ease: 'none'
     });
   
-    window.gsap.to('.svg-container', {
+    gsap.to('.svg-container', {
       rotation: -360,
       duration: 11,
       repeat: -1,
@@ -132,48 +126,41 @@ class TextAnimations {
     });
   }
 
-  /* ======================= */
-  /*   HOME PAGE ANIMATIONS   */
-  /* ======================= */
-  // Initial Setup
-  gsap.set(['.name', '.paragraph', '.paragraph-desktop', '.paragraph-mobile'], {
-    y: 50,
-    opacity: 0,
-    willChange: 'transform, opacity'
-  });
+  initHomeAnimations() {
+    gsap.set(['.name', '.paragraph', '.paragraph-desktop', '.paragraph-mobile'], {
+      y: 50,
+      opacity: 0,
+      willChange: 'transform, opacity'
+    });
 
-  // Main Timeline
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.main-content',
-      start: 'top 80%',
-      toggleActions: 'play none none reverse'
-    }
-  });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.main-content',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      }
+    });
 
-  tl.to('.name', {
-    y: 0,
-    opacity: 1,
-    duration: 1,
-    ease: 'power2.out'
-  })
-  .to('.paragraph', {
-    y: 0,
-    opacity: 1,
-    duration: 0.4,
-    ease: 'power2.out'
-  }, '+=0.05')
-  .to(['.paragraph-desktop', '.paragraph-mobile'], {
-    y: 0,
-    opacity: 1,
-    duration: 0.4,
-    ease: 'power2.out'
-  }, '+=0.05');
-}
+    tl.to('.name', {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: 'power2.out'
+    })
+    .to('.paragraph', {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power2.out'
+    }, '+=0.05')
+    .to(['.paragraph-desktop', '.paragraph-mobile'], {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      ease: 'power2.out'
+    }, '+=0.05');
+  }
 
-  /* ======================= */
-  /*   MENU PAGE ANIMATIONS   */
-  /* ======================= */
   initAboutAnimations() {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -183,7 +170,6 @@ class TextAnimations {
       }
     });
 
-    // Initial States
     gsap.set([
       '.profile-picture-mobile',
       '.about-title',
@@ -196,7 +182,6 @@ class TextAnimations {
       willChange: 'transform, opacity'
     });
 
-    // Animations
     if (document.querySelector('.profile-picture-mobile')) {
       tl.to('.profile-picture-mobile', {
         y: 0,
@@ -222,7 +207,6 @@ class TextAnimations {
       }, i === 0 ? '+=0.1' : '+=0.05');
     });
 
-    // Boxes Timeline
     const boxesTl = gsap.timeline();
     document.querySelectorAll('.box').forEach((box, i) => {
       boxesTl.to(box, {
@@ -246,13 +230,9 @@ class TextAnimations {
     tl.add(boxesTl);
   }
 
- /* ======================= */
-  /*  PROJECT PAGE ANIMATIONS */
-  /* ======================= */
   initProjectAnimations() {
     const mainTl = gsap.timeline();
 
-    // Initial States
     gsap.set([
       '.project-header p',
       '.project-header h1',
@@ -266,7 +246,6 @@ class TextAnimations {
       willChange: 'transform, opacity'
     });
 
-    // Header Animations
     mainTl
       .to(['.project-header h1', '.project-header p'], {
         y: 0,
@@ -293,7 +272,6 @@ class TextAnimations {
         ease: 'power2.out'
       }, '+=0.05');
 
-    // Gallery Animations
     const galleryTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.gallery-section',
@@ -312,18 +290,8 @@ class TextAnimations {
   }
 }
 
-// Smart Initialization
-if (document.readyState === 'complete') {
-  new TextAnimations();
-} else {
-  document.addEventListener('DOMContentLoaded', () => {
-    new TextAnimations();
-  });
-}
-
-// Inicialización segura para Safari
+// Inicialización segura
 function initializeAnimations() {
-  // Espera a que GSAP esté disponible
   const checkInterval = setInterval(() => {
     if (window.gsap && window.ScrollTrigger) {
       clearInterval(checkInterval);
@@ -331,13 +299,10 @@ function initializeAnimations() {
     }
   }, 100);
 
-  // Timeout de seguridad
   setTimeout(() => {
     clearInterval(checkInterval);
     if (window.gsap && window.ScrollTrigger) {
       new TextAnimations();
-    } else {
-      console.error('No se pudo cargar GSAP después de 3 segundos');
     }
   }, 3000);
 }
