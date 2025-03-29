@@ -9,15 +9,9 @@ class LoadingScreen {
   }
 
   static shouldShow() {
-    // Siempre muestra la loading screen si no hay hash (primera carga)
-    if (!window.location.hash) {
-      return true;
-    }
-    
-    const hasVisited = localStorage.getItem('hasVisited');
-    const isRefresh = performance.navigation.type === performance.navigation.TYPE_RELOAD;
-    
-    if (!hasVisited || isRefresh) {
+    // Mostrar siempre en refresh o primera visita
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD || 
+        !localStorage.getItem('hasVisited')) {
       localStorage.setItem('hasVisited', 'true');
       return true;
     }
@@ -25,10 +19,13 @@ class LoadingScreen {
   }
 
   start() {
+    if (!this.loadingScreen) return;
+    
     if (!LoadingScreen.shouldShow()) {
       this.skipLoading();
       return;
     }
+    
     this.animate();
     this.simulateLoading();
   }
@@ -86,7 +83,6 @@ class LoadingScreen {
         this.loadingScreen.classList.add('fade-out');
         document.body.style.overflow = 'auto';
         
-        // Remove the loading screen from DOM after fade out
         setTimeout(() => {
           this.loadingScreen.remove();
         }, 500);
@@ -95,8 +91,11 @@ class LoadingScreen {
   }
 }
 
-// Initialize loading screen when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  const loader = new LoadingScreen();
-  loader.start();
-});
+// Inicialización mejorada
+if (document.readyState === 'complete') {
+  new LoadingScreen().start();
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
+    new LoadingScreen().start();
+  });
+}
