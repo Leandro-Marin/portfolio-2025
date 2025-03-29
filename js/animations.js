@@ -1,32 +1,33 @@
-const { gsap } = window;
-const { ScrollTrigger } = window;
-
-class TextAnimations {
-  constructor() {
-    if (!window.gsap) {
-      console.error('❌ GSAP no está cargado');
-      return;
-    }
-    
-    gsap.registerPlugin(ScrollTrigger);
-    this.init();
-    console.log('✨ Animaciones inicializadas');
+// Verificar si GSAP está cargado
+function initAnimations() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    console.error('GSAP no está cargado - reintentando...');
+    setTimeout(initAnimations, 100);
+    return;
   }
 
-  init() {
-    const path = window.location.pathname;
-    
-    if (path === '/' || path.includes('index.html')) {
-      this.initHomeAnimations();
-      this.createCircularText();
-    } else if (path.includes('about.html')) {
-      this.initAboutAnimations();
-    } else if (path.includes('menu.html')) {
-      this.initMenuAnimations();
-    } else if (path.includes('project-')) {
-      this.initProjectAnimations();
+  gsap.registerPlugin(ScrollTrigger);
+
+  class TextAnimations {
+    constructor() {
+      this.init();
+      console.log('✨ Animaciones inicializadas');
     }
-  }
+
+    init() {
+      const path = window.location.pathname;
+      
+      if (path === '/' || path.includes('index.html')) {
+        this.initHomeAnimations();
+        this.createCircularText();
+      } else if (path.includes('about.html')) {
+        this.initAboutAnimations();
+      } else if (path.includes('menu.html')) {
+        this.initMenuAnimations();
+      } else if (path.includes('project-')) {
+        this.initProjectAnimations();
+      }
+    }
 
   /* ======================= */
   /*   CIRCLE TEXT & SVG      */
@@ -297,11 +298,25 @@ class TextAnimations {
   }
 }
 
-// Smart Initialization
+// Inicialización
 if (document.readyState === 'complete') {
   new TextAnimations();
 } else {
   document.addEventListener('DOMContentLoaded', () => {
     new TextAnimations();
   });
+}
+}
+
+// Iniciar animaciones cuando GSAP esté listo
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+initAnimations();
+} else {
+// Si GSAP no está cargado, esperar a que se cargue
+const checkGSAP = setInterval(() => {
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    clearInterval(checkGSAP);
+    initAnimations();
+  }
+}, 100);
 }

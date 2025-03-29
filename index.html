@@ -10,7 +10,12 @@
     <link rel="stylesheet" href="style/transitions.css">
     <link rel="stylesheet" href="style/animations.css">
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    
+    <!-- Precargar GSAP -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" as="script">
   </head>
+
 
   <body>
     <div class="loading-screen">
@@ -85,39 +90,11 @@
       </div>
     </footer>
 
-      <!-- Carga de GSAP con soporte para Safari -->
-    <script>
-      // Función para cargar GSAP solo si no está disponible
-      function loadGSAP() {
-        if (!window.gsap) {
-          const gsapScript = document.createElement('script');
-          gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-          
-          // Configuración especial para Safari
-          gsapScript.crossOrigin = 'anonymous';
-          gsapScript.async = false; // Importante para Safari
-          
-          gsapScript.onload = function() {
-            // Cargar ScrollTrigger después de GSAP
-            const stScript = document.createElement('script');
-            stScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-            stScript.async = false; // Importante para Safari
-            document.body.appendChild(stScript);
-          };
-          
-          document.body.appendChild(gsapScript);
-        }
-      }
+      <!-- Carga de GSAP primero -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-      // Llamar a la función cuando el DOM esté listo
-      if (document.readyState === 'complete') {
-        loadGSAP();
-      } else {
-        document.addEventListener('DOMContentLoaded', loadGSAP);
-      }
-    </script>
-
-    <!-- Tus scripts (asegúrate de que esperen a que GSAP esté listo) -->
+    <!-- Tus scripts -->
     <script src="js/loading.js"></script>
     <script src="js/transitions.js"></script>
     <script src="js/animations.js"></script>
@@ -128,21 +105,15 @@
       document.addEventListener('DOMContentLoaded', function() {
         // Manejar todos los clicks en enlaces internos
         document.body.addEventListener('click', function(e) {
-          if (e.target.tagName === 'A' && e.target.href) {
-            const url = new URL(e.target.href);
-            
-            // Si es un enlace interno (mismo dominio)
-            if (url.hostname === window.location.hostname) {
-              e.preventDefault();
-              
-              // Usar sessionStorage para marcar que no es una carga inicial
-              sessionStorage.setItem('isSPANavigation', 'true');
-              window.location.href = url.href;
-            }
+          const link = e.target.closest('a');
+          if (link && link.href && link.hostname === window.location.hostname) {
+            e.preventDefault();
+            sessionStorage.setItem('isSPANavigation', 'true');
+            window.location.href = link.href;
           }
         });
-    
-        // Manejar el botón de retroceso/avance
+
+        // Manejar botones de atrás/adelante
         window.addEventListener('popstate', function() {
           sessionStorage.setItem('isSPANavigation', 'true');
         });

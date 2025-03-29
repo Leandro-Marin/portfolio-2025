@@ -6,28 +6,27 @@ class LoadingScreen {
     this.currentProgress = 0;
     this.targetProgress = 0;
     this.isLoading = true;
-    this.navigationChecked = false;
   }
 
-  // MÉTODO ACTUALIZADO (PUNTO 3)
   static shouldShow() {
-    // 1. Si es una navegación entre páginas (no carga inicial), no mostrar loading
+    // 1. Si es una navegación interna (click en enlaces), no mostrar loading
     if (sessionStorage.getItem('isSPANavigation')) {
       sessionStorage.removeItem('isSPANavigation');
       return false;
     }
 
-    // 2. Detectar tipo de carga usando Performance API (navegadores modernos)
+    // 2. Mostrar solo en carga inicial (navigate) o refresh (reload)
     if (window.performance && window.performance.getEntriesByType) {
       const navEntries = performance.getEntriesByType('navigation');
       if (navEntries.length > 0) {
         return navEntries[0].type === 'navigate' || navEntries[0].type === 'reload';
       }
     }
-    
+
     // 3. Fallback para navegadores antiguos
     return !sessionStorage.getItem('alreadyLoaded');
   }
+
   start() {
     if (!this.loadingScreen) return;
 
@@ -41,6 +40,7 @@ class LoadingScreen {
     this.simulateLoading();
   }
 
+  // Resto de tus métodos existentes...
   skipLoading() {
     if (this.loadingScreen) {
       this.loadingScreen.style.display = 'none';
@@ -94,7 +94,6 @@ class LoadingScreen {
         this.loadingScreen.classList.add('fade-out');
         document.body.style.overflow = 'auto';
         
-        // Remove the loading screen from DOM after fade out
         setTimeout(() => {
           this.loadingScreen.remove();
         }, 500);
@@ -103,13 +102,7 @@ class LoadingScreen {
   }
 }
 
-// Initialize loading screen when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  const loader = new LoadingScreen();
-  loader.start();
-});
-
-// Inicialización mejorada
+// Inicialización
 if (document.readyState === 'complete') {
   new LoadingScreen().start();
 } else {
