@@ -42,8 +42,21 @@ const colorPalettes = [
   { bg: '#F5F3F0', text: '#FF4D00' },  // Warm Glow
   { bg: '#A4D17A', text: '#728F48' },  // Mossy Whisper
   { bg: '#F4ECE5', text: '#8F6348' },  // Autumn Glow
-  { bg: '#2A2A2A', text: '#FF007F' }, // Metallic Rose
-  { bg: '#FFFEF0', text: '#6A8E7F' }  // Main colors 
+  { bg: '#2A2A2A', text: '#FF007F' },  // Metallic Rose
+  { bg: '#FFFEF0', text: '#6A8E7F' },  // Main colors
+  { bg: '#D32F2F', text: '#FFFFFF' },  // Bold Red + White (Strong Contrast)
+  { bg: '#1976D2', text: '#FFEB3B' },  // Blue + Yellow (High Contrast)
+  { bg: '#512DA8', text: '#FF4081' },  // Purple + Pink (Bold and Contrast)
+  { bg: '#0288D1', text: '#FFC107' },  // Bright Blue + Amber (Vibrant Combo)
+  { bg: '#00C853', text: '#FF3D00' },  // Bold Green + Red (Striking Contrast)
+  { bg: '#6200EA', text: '#FF9100' },  // Electric Purple + Orange
+  { bg: '#FF3D00', text: '#B2FF59' },  // Vivid Red + Neon Green (Sharp Contrast)
+  { bg: '#009688', text: '#FFEB3B' },  // Teal + Yellow (Fresh Bold Look)
+  { bg: '#9C27B0', text: '#FFFFFF' },  // Bold Purple + White
+  { bg: '#4CAF50', text: '#D32F2F' },  // Fresh Green + Bold Red (Strong)
+  { bg: '#2196F3', text: '#FF9800' },  // Blue + Orange (Energetic Combo)
+  { bg: '#673AB7', text: '#FFD600' },  // Deep Purple + Bright Yellow
+  { bg: '#8BC34A', text: '#FF5722' },  // Green + Deep Orange (Warm and Bold) 
 ];
 
 function changeMood() {
